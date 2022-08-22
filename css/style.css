@@ -110,7 +110,8 @@ nav{
     border-radius: 0 0 6px 6px;
     padding: 20px 20px 0 20px;
     transition: .4s;
-    box-shadow: 5px 5px 10px var(--very-light-pink)
+    box-shadow: 5px 5px 10px var(--very-light-pink);
+    z-index: 1;
 }
 
 .desktop-menu ul{
@@ -160,6 +161,7 @@ nav{
     top: 61px;
     left: 0;
     padding: 20px 0 0 20px;
+    z-index: 1;
 }
 .menu-mobile ul{
     padding: 0;
@@ -196,6 +198,7 @@ nav{
     position: absolute;
     right: 0;
     background-color: var(--white);
+    z-index: 1;
 }
 
 .product-detail-close{
@@ -634,6 +637,15 @@ nav{
     justify-content: center;
 }
 
+.darken
+{
+  width: 100%;
+  height: calc(100vh - 61px);
+  position: fixed;
+  top: 61px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 
 
 @media (max-width: 850px) {
@@ -668,7 +680,7 @@ nav{
         height: 140px;
     }
 
-    .product-detail{
+    .aside{
         width: 100%;
     }
 

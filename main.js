@@ -4,7 +4,7 @@ import { products } from "./products.js";
 const arrowMenu = document.querySelector(".navbar-arrow");
 const handleMenu = document.querySelector(".menu-navbar");
 const shoppingCart = document.querySelector(".navbar-shopping-cart");
-const mainSection = document.querySelector(".main");
+const modalSection = document.querySelector(".darken");
 const shoppingArrow = document.querySelector(".shopping-arrow");
 const cardsContainer = document.querySelector(".cards-container");
 const closeProductDetail = document.querySelector(".product-detail-close");
@@ -17,24 +17,63 @@ const shoppingCartContainer = document.querySelector(".shopping");
 const productDetailContainer = document.querySelector(".product-detail");
 
 /* Valid is Open*/
+const isModalOpen = modalSection.classList.contains('inactive')
 
 const toggleMenu = () => {
-    shoppingCartContainer.classList.add("inactive");
     desktopMenu.classList.toggle("inactive");
-    productDetailContainer.classList.add("inactive");
+    const isMenuOpen = desktopMenu.classList.contains("inactive")
+    
+    if(!isMenuOpen){
+        modalSection.classList.remove('inactive')
+        shoppingCartContainer.classList.add("inactive");
+        productDetailContainer.classList.add("inactive");
+    }
+    else{
+        modalSection.classList.add('inactive')
+    }
+
 };
 
 const toggleMenuMobile = () => {
     mobileMenu.classList.toggle("inactive");
-    shoppingCartContainer.classList.add("inactive");
-    productDetailContainer.classList.add("inactive");
+    const isMobileMenu= mobileMenu.classList.contains("inactive")
+    
+    if(!isMobileMenu){
+        shoppingCartContainer.classList.add("inactive");
+        productDetailContainer.classList.add("inactive");
+        modalSection.classList.remove('inactive')
+    }
+    else{
+        modalSection.classList.add('inactive')
+    }
 };
 
 function toggleCarritoAside() {
-    desktopMenu.classList.add("inactive");
-    mobileMenu.classList.add("inactive");
-    productDetailContainer.classList.add("inactive");
     shoppingCartContainer.classList.toggle("inactive");
+    const isShoppingClosed = shoppingCartContainer.classList.contains('inactive');
+    
+    if(!isShoppingClosed){
+        desktopMenu.classList.add("inactive");
+        mobileMenu.classList.add("inactive");
+        productDetailContainer.classList.add("inactive");
+        modalSection.classList.remove('inactive')
+    }
+    else{
+        modalSection.classList.add('inactive')
+    }
+}
+
+function toggleProductDetail() {
+    productDetailContainer.classList.toggle("inactive");
+    const isProductClosed = productDetailContainer.classList.contains('inactive');
+
+    if(!isProductClosed){
+        modalSection.classList.remove('inactive')
+    }
+    else{
+        modalSection.classList.add('inactive')
+    }
+
 }
 
 function closeAllMenus() {
@@ -42,6 +81,8 @@ function closeAllMenus() {
     const isSectionClosed =
         shoppingCartContainer.classList.contains("inactive");
     const isMenuMobileClosed = mobileMenu.classList.contains("inactive");
+    const isProductClosed =
+        productDetailContainer.classList.contains("inactive");
 
     if (!desktopMenu.classList.contains("inactive")) {
         desktopMenu.classList.add("inactive");
@@ -52,6 +93,11 @@ function closeAllMenus() {
     if (!isMenuMobileClosed) {
         mobileMenu.classList.add("inactive");
     }
+    if (!isProductClosed) {
+        productDetailContainer.classList.add("inactive");
+    }
+
+    modalSection.classList.toggle("inactive");
 }
 
 function productCard(name, src, price) {
@@ -61,7 +107,7 @@ function productCard(name, src, price) {
     productImg.setAttribute("alt", name);
     productImg.setAttribute("src", src);
     productImg.classList.add("product-img");
-    productImg.addEventListener("click", openDetail);
+    productImg.addEventListener("click", toggleProductDetail);
     const productInfo = document.createElement("div");
     productInfo.classList.add("product-info");
     const productInfoDiv = document.createElement("div");
@@ -89,17 +135,9 @@ products.map(({ name, src, price }) => {
 
 cardsContainer.append(...paintProducts);
 
-function openDetail() {
-    productDetailContainer.classList.remove("inactive");
-}
-
-function closeProduct() {
-    productDetailContainer.classList.add("inactive");
-}
-
 arrowMenu.addEventListener("click", toggleMenu);
 handleMenu.addEventListener("click", toggleMenuMobile);
 shoppingCart.addEventListener("click", toggleCarritoAside);
 shoppingArrow.addEventListener("click", toggleCarritoAside);
-closeProductDetail.addEventListener("click", closeProduct);
-mainSection.addEventListener("click", closeAllMenus);
+closeProductDetail.addEventListener("click", toggleProductDetail);
+modalSection.addEventListener("click", closeAllMenus);
