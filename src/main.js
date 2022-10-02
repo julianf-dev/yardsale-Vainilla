@@ -112,7 +112,7 @@ function productCard(name, src, price) {
     productInfoDiv.append(productPrice, productName);
     const productFigure = document.createElement("figure");
     const productIcon = document.createElement("img");
-    productIcon.setAttribute("src", "./icons/bt_add_to_cart.svg");
+    productIcon.setAttribute("src", "./src/icons/bt_add_to_cart.svg");
     productIcon.setAttribute("alt", "cart icon");
     productFigure.appendChild(productIcon);
     productInfo.append(productInfoDiv, productFigure);
