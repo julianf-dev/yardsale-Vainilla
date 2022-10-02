@@ -141,3 +141,4 @@ shoppingCart.addEventListener("click", toggleCarritoAside);
 shoppingArrow.addEventListener("click", toggleCarritoAside);
 closeProductDetail.addEventListener("click", toggleProductDetail);
 modalSection.addEventListener("click", closeAllMenus);
+
